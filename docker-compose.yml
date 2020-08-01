@@ -1,0 +1,19 @@
+server:
+  container_name: rt-server
+#  build: .
+  image: pataquets/remote-torrent
+  command: [ "server", "8899", "user:password" ]
+  ports:
+    - "8899:8899"
+
+client:
+  container_name: rt-client
+#  build: .
+  image: pataquets/remote-torrent
+  command:
+    - "client"
+    - "user:password"
+    - "server:8899"
+    - "magnet:?xt=urn:btih:ADBFF7EA0E936FCED6F3D088276CACC7F41D050F&dn=bbb_sunflower_1080p_30fps_stereo_abl.mp4"
+  links:
+    - server
